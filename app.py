@@ -16,16 +16,45 @@ def load_matcher():
 
 matcher = load_matcher()
 
+# Sidebar: Quick Suggestions and Reset
+with st.sidebar:
+    st.header("⚡ Quick Actions")
+    
+    st.subheader("Frequently Asked")
+    sample_queries = [
+        "Business hours?",
+        "How can I track my order?",
+        "What is your return policy?",
+        "Accepted payment methods?"
+    ]
+    
+    selected_query = None
+    for q in sample_queries:
+        if st.button(q, use_container_width=True):
+            selected_query = q
+            
+    st.divider()
+    if st.button("🗑️ Clear Chat History", use_container_width=True):
+        st.session_state.messages = [
+            {"role": "assistant", "content": "Chat history cleared. How can I help you today?"}
+        ]
+        st.rerun()
+
+# Initialize session messages
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "assistant", "content": "Hello! How can I help you today?"}
     ]
 
+# Render chat history
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if user_prompt := st.chat_input("Type your question here..."):
+# Determine input source: text input or clicked button
+user_prompt = st.chat_input("Type your question here...") or selected_query
+
+if user_prompt:
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
