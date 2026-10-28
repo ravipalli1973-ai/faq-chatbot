@@ -46,7 +46,6 @@ class FAQMatcher:
         self.faq_matrix = self.vectorizer.fit_transform(self.patterns)
 
     def _log_unanswered_query(self, query: str, score: float):
-        """Saves unmatched questions so developers can expand the FAQ dataset."""
         logs = []
         if os.path.exists(self.log_file):
             try:
@@ -56,8 +55,11 @@ class FAQMatcher:
                 logs = []
 
         logs.append({"query": query, "best_score": score})
-        with open(self.log_file, "w", encoding="utf-8") as f:
-            json.dump(logs, f, indent=2)
+        try:
+            with open(self.log_file, "w", encoding="utf-8") as f:
+                json.dump(logs, f, indent=2)
+        except Exception:
+            pass
 
     def get_response(self, user_query: str, threshold: float = 0.20):
         cleaned_query = preprocess(user_query)
