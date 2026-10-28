@@ -7,7 +7,6 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Ensure required NLTK resources are available
 nltk.download('punkt', quiet=True)
 nltk.download('punkt_tab', quiet=True)
 nltk.download('stopwords', quiet=True)
@@ -17,14 +16,6 @@ lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
 def preprocess(text: str) -> str:
-    """
-    Cleans and standardizes input text:
-    - Lowercase
-    - Strip punctuation
-    - Word tokenization
-    - Remove stopwords
-    - Lemmatize tokens to base form
-    """
     text = text.lower()
     text = text.translate(str.maketrans('', '', string.punctuation))
     tokens = word_tokenize(text)
@@ -43,35 +34,34 @@ class FAQMatcher:
         self.patterns = []
         self.pattern_to_answer = []
 
-        # Index all question patterns to their respective answers
         for item in self.faq_data:
-            ans = item["answer"]
+            answer = item["answer"]
             for pattern in item["patterns"]:
                 self.patterns.append(preprocess(pattern))
-                self.pattern_to_answer.append(ans)
+                self.pattern_to_answer.append(answer)
 
-        # Fit TF-IDF matrix over all preprocessed question variations
         self.vectorizer = TfidfVectorizer()
         self.faq_matrix = self.vectorizer.fit_transform(self.patterns)
 
-    def get_response(self, user_query: str, threshold: float = 0.20) -> str:
+    def get_response_with_confidence(self, user_query: str, threshold: float = 0.20):
         cleaned_query = preprocess(user_query)
         if not cleaned_query.strip():
-            return "Please provide more detail in your question so I can assist you."
+            return "Please provide more detail in your question so I can assist you.", 0.0
 
         query_vector = self.vectorizer.transform([cleaned_query])
         similarities = cosine_similarity(query_vector, self.faq_matrix)[0]
 
         best_index = similarities.argmax()
-        highest_score = similarities[best_index]
+        highest_score = float(similarities[best_index])
 
         if highest_score < threshold:
-            return "I'm sorry, I couldn't find an answer matching your question. Please try rephrasing or contact support."
+            return "I'm sorry, I couldn't find an answer matching your question. Please try rephrasing or contact support.", round(highest_score * 100, 1)
 
-        return self.pattern_to_answer[best_index]
+        return self.pattern_to_answer[best_index], round(highest_score * 100, 1)
 
 if __name__ == "__main__":
     matcher = FAQMatcher()
     sample = "when do you open and close?"
+    reply, score = matcher.get_response_with_confidence(sample)
     print(f"Sample Query: {sample}")
-    print(f"Chatbot Match: {matcher.get_response(sample)}")
+    print(f"Chatbot Match: {reply} (Confidence: {score}%)")

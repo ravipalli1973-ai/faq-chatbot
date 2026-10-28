@@ -16,10 +16,8 @@ def load_matcher():
 
 matcher = load_matcher()
 
-# Sidebar: Quick Suggestions and Reset
 with st.sidebar:
     st.header("⚡ Quick Actions")
-    
     st.subheader("Frequently Asked")
     sample_queries = [
         "Business hours?",
@@ -40,18 +38,15 @@ with st.sidebar:
         ]
         st.rerun()
 
-# Initialize session messages
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "assistant", "content": "Hello! How can I help you today?"}
     ]
 
-# Render chat history
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Determine input source: text input or clicked button
 user_prompt = st.chat_input("Type your question here...") or selected_query
 
 if user_prompt:
