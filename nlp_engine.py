@@ -35,15 +35,15 @@ class FAQMatcher:
         self.pattern_to_answer = []
 
         for item in self.faq_data:
-            answer = item["answer"]
+            ans = item["answer"]
             for pattern in item["patterns"]:
                 self.patterns.append(preprocess(pattern))
-                self.pattern_to_answer.append(answer)
+                self.pattern_to_answer.append(ans)
 
         self.vectorizer = TfidfVectorizer()
         self.faq_matrix = self.vectorizer.fit_transform(self.patterns)
 
-    def get_response_with_confidence(self, user_query: str, threshold: float = 0.20):
+    def get_response(self, user_query: str, threshold: float = 0.20):
         cleaned_query = preprocess(user_query)
         if not cleaned_query.strip():
             return "Please provide more detail in your question so I can assist you.", 0.0
@@ -55,13 +55,14 @@ class FAQMatcher:
         highest_score = float(similarities[best_index])
 
         if highest_score < threshold:
-            return "I'm sorry, I couldn't find an answer matching your question. Please try rephrasing or contact support.", round(highest_score * 100, 1)
+            fallback = "I'm sorry, I couldn't find an answer matching your question. Please try rephrasing or contact support."
+            return fallback, round(highest_score, 2)
 
-        return self.pattern_to_answer[best_index], round(highest_score * 100, 1)
+        return self.pattern_to_answer[best_index], round(highest_score, 2)
 
 if __name__ == "__main__":
     matcher = FAQMatcher()
     sample = "when do you open and close?"
-    reply, score = matcher.get_response_with_confidence(sample)
+    reply, score = matcher.get_response(sample)
     print(f"Sample Query: {sample}")
-    print(f"Chatbot Match: {reply} (Confidence: {score}%)")
+    print(f"Chatbot Match: {reply} (Score: {score})")

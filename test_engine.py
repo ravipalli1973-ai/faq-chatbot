@@ -1,4 +1,12 @@
 ﻿import unittest
+import nltk
+
+# Ensure all NLTK corpus files are ready for CI runner
+nltk.download('punkt', quiet=True)
+nltk.download('punkt_tab', quiet=True)
+nltk.download('stopwords', quiet=True)
+nltk.download('wordnet', quiet=True)
+
 from nlp_engine import FAQMatcher
 
 class TestFAQEngine(unittest.TestCase):
