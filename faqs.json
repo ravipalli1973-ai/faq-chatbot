@@ -1,0 +1,61 @@
+﻿[
+  {
+    "id": 1,
+    "patterns": [
+      "What are your business hours?",
+      "When do you open and close?",
+      "What time do you open?",
+      "Working hours and operating times"
+    ],
+    "answer": "We are open Monday through Friday from 9:00 AM to 6:00 PM EST."
+  },
+  {
+    "id": 2,
+    "patterns": [
+      "How can I track my order?",
+      "Where is my package?",
+      "Check shipment tracking status",
+      "Order status"
+    ],
+    "answer": "You can track your order using the tracking link sent to your confirmation email, or via the 'My Orders' section on our website."
+  },
+  {
+    "id": 3,
+    "patterns": [
+      "What is your return policy?",
+      "Can I return an item?",
+      "How do refunds work?",
+      "Money back guarantee and returns"
+    ],
+    "answer": "We offer a 30-day return policy for unused items in their original packaging. Return shipping is free."
+  },
+  {
+    "id": 4,
+    "patterns": [
+      "Do you ship internationally?",
+      "Worldwide delivery options",
+      "Do you deliver outside the US?",
+      "Global shipping"
+    ],
+    "answer": "Yes, we ship to over 50 countries worldwide. International shipping rates and delivery times vary by destination."
+  },
+  {
+    "id": 5,
+    "patterns": [
+      "How can I contact customer support?",
+      "Talk to a human or customer service agent",
+      "Customer help desk phone number or email",
+      "Support contact"
+    ],
+    "answer": "You can reach customer support via email at support@example.com or call our toll-free line at 1-800-555-0199."
+  },
+  {
+    "id": 6,
+    "patterns": [
+      "What payment methods do you accept?",
+      "Can I pay with PayPal, credit card, or Apple Pay?",
+      "Payment options available"
+    ],
+    "answer": "We accept Visa, MasterCard, American Express, PayPal, and Apple Pay."
+  }
+]
