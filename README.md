@@ -11,3 +11,6 @@
 
 ### Local Setup
 Run `streamlit run app.py` to start the chatbot.
+
+### Tech Stack
+- Python, NLTK, Scikit-learn, Streamlit
