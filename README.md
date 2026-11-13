@@ -14,3 +14,6 @@ Run `streamlit run app.py` to start the chatbot.
 
 ### Tech Stack
 - Python, NLTK, Scikit-learn, Streamlit
+
+### License
+Open-source project for educational and portfolio use.
