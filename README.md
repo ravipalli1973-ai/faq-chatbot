@@ -6,3 +6,5 @@
 - Similarity Metric: Cosine Similarity scoring with confidence threshold filtering
 - User Interface: Streamlit interactive session state
 
+
+- Improved fallback response for low-confidence queries (Closes #1)
