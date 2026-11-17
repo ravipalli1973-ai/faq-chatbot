@@ -21,3 +21,5 @@ Run `streamlit run app.py` to start the chatbot.
 ### License
 Open-source project for educational and portfolio use.
 
+
+- Prevented empty or whitespace-only input submission (Closes #7)
