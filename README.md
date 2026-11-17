@@ -23,3 +23,5 @@ Open-source project for educational and portfolio use.
 
 
 - Prevented empty or whitespace-only input submission (Closes #7)
+
+- Added local virtual environment and Streamlit setup instructions (Closes #9)
