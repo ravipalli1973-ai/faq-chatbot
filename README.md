@@ -7,6 +7,9 @@
 - User Interface: Streamlit interactive session state
 
 
+
+- Improved fallback response for low-confidence queries (Closes #1)
+
 - Practiced creating a Pull Request.
 
 ### Local Setup
@@ -17,3 +20,4 @@ Run `streamlit run app.py` to start the chatbot.
 
 ### License
 Open-source project for educational and portfolio use.
+
