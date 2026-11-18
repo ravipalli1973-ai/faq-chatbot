@@ -25,3 +25,5 @@ Open-source project for educational and portfolio use.
 - Prevented empty or whitespace-only input submission (Closes #7)
 
 - Added local virtual environment and Streamlit setup instructions (Closes #9)
+
+- Added Clear Chat button in sidebar to reset conversation history (Closes #11)
